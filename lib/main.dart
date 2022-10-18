@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:speed_reading_app/animated_text.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,13 +29,30 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  String generatedText = lorem(paragraphs: 1, words: 100);
+  String currentWord = 'screen';
+  final Duration duration = Duration(milliseconds: 222);
+  late AnimationController _controller;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: duration,
+    );
+    super.initState();
+  }
+
+  Future<void> _speedShow() async {
+    List<String> words = generatedText.split(' ');
+    for (var word in words) {
+      setState(() {
+        currentWord = word;
+      });
+      await _controller.forward();
+      _controller.value = 0;
+    }
   }
 
   @override
@@ -46,19 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Expanded(child: Text(generatedText)),
+            const Divider(),
+            Expanded(
+              child: Center(
+                child: AnimatedText(
+                  text: currentWord,
+                  controller: _controller,
+                ),
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _speedShow,
+        tooltip: 'generate',
         child: const Icon(Icons.receipt_outlined),
       ),
     );
