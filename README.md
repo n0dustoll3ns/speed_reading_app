@@ -1,13 +1,16 @@
-# Crypto package for dart_mobile
+# speed_reading_app
 
-This package is made to provide cryptographic functions for flutter application.
+A new Flutter project.
 
-Those functions should be implemented and appropriately tested:
+## Getting Started
 
-- Cryptographic key generation (custom bit length)
-- Saving keys to local storage
-- Loading keys from local storage
-- Exporting private key to string PEM from local storage
-- Importing private key to local storage from string PEM
-- Exporting public key to string base64 from local storage
-- Signing custom string messages with private key
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
